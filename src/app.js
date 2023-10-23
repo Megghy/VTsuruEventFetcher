@@ -49,7 +49,7 @@ async function Init() {
   await Check();
   setInterval(async () => {
     await Check();
-  }, 5000);
+  }, 5500);
   setInterval(() => {
     checkCookie();
   }, 30000);
