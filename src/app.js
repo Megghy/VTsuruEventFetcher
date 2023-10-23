@@ -124,7 +124,7 @@ async function SendEvent() {
       return false;
     }
   } catch (err) {
-    console.error('[ADD EVENT] 失败:', err);
+    console.error('[ADD EVENT] 无法访问后端');
     return false;
   }
 }
