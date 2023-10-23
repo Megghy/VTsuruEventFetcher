@@ -2,6 +2,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import ChatClientDirectWeb from './chat/ChatClientDirectWeb.js';
 import https from 'https';
+import http from 'http';
 
 const VTSURU_BASE_URL = 'https://hongkong.vtsuru.live/api/';
 const VTSURU_EVENT_URL = VTSURU_BASE_URL + 'event/';
@@ -39,6 +40,18 @@ async function Init() {
   }
   console.log('token: ' + process.env.VTSURU_TOKEN);
   TOKEN = process.env.VTSURU_TOKEN;
+  if (process.env.PORT) {
+    const server = http.createServer((req, res) => {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end('Hello World');
+    });
+
+    server.listen(port, () => {
+      console.log(`Server is running on http://127.0.0.1:${port}/`);
+    });
+  }
+
   await checkCookie();
   await Check();
   setInterval(async () => {
