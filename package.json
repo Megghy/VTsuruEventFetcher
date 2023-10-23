@@ -1,0 +1,17 @@
+{
+  "name": "VTsuruEventFetcher",
+  "version": "1.0.0",
+  "description": "VTsuru 直播间事件获取",
+  "main": "app.js",
+  "repository": "https://github.com/Megghy/VTsuruEventFetcher",
+  "author": "Megghy",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "axios": "^1.5.1",
+    "dotenv": "^16.3.1",
+    "pako": "^2.1.0",
+    "websocket": "^1.0.34"
+  },
+  "type": "module"
+}
