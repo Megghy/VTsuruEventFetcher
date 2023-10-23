@@ -41,6 +41,7 @@ async function Init() {
   console.log('token: ' + process.env.VTSURU_TOKEN);
   TOKEN = process.env.VTSURU_TOKEN;
   if (process.env.PORT) {
+    const port = process.env.PORT;
     const server = http.createServer((req, res) => {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'text/plain');
@@ -48,7 +49,7 @@ async function Init() {
     });
 
     server.listen(port, () => {
-      console.log(`Server is running on http://127.0.0.1:${port}/`);
+      console.log(`Server is listening: ${port}`);
     });
   }
 
