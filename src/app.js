@@ -91,6 +91,9 @@ async function checkCookie() {
   }
 }
 function extractDedeUserID(str) {
+  if (!str) {
+    return null;
+  }
   const regex = /DedeUserID=([^;]+)/;
   const match = str.match(regex);
   if (match && match[1]) {
