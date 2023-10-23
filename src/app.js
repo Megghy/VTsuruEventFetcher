@@ -25,15 +25,7 @@ const agent = new https.Agent({
 Init();
 async function Init() {
   dotenv.config();
-  const u = extractDedeUserID(process.env.VTSURU_BILI_COOKIE);
-  if (!u) {
-    status = 'cookie无效';
-    console.log('cookie无效, 可能导致事件缺失');
-  } else {
-    uid = Number(u);
-    console.log('cookie: ' + process.env.VTSURU_BILI_COOKIE);
-    console.log('uid: ' + u);
-  }
+  console.log('cookie: ' + process.env.VTSURU_BILI_COOKIE);
   if (!process.env.VTSURU_TOKEN) {
     console.log('未提供token');
     return;
@@ -76,6 +68,8 @@ async function Check() {
     }
   } catch (err) {
     console.log(err);
+  }
+  finally {
     isChecking = false;
   }
 }
@@ -104,17 +98,6 @@ async function checkCookie() {
     Logs.Warn(ex);
   }
 }
-function extractDedeUserID(str) {
-  if (!str) {
-    return null;
-  }
-  const regex = /DedeUserID=([^;]+)/;
-  const match = str.match(regex);
-  if (match && match[1]) {
-    return match[1];
-  }
-  return null; // 如果未找到匹配项，则返回null或其他适当的默认值
-}
 async function SendEvent() {
   const tempEvents = events.length > 10 ? [...events].splice(0, 10) : events;
   try {
@@ -124,7 +107,6 @@ async function SendEvent() {
           token: TOKEN,
           status: status,
         },
-        httpAgent: agent,
       })
     ).data;
     if (res.code == 200) {
