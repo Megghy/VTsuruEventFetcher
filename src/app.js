@@ -1,7 +1,6 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import ChatClientDirectWeb from './chat/ChatClientDirectWeb.js';
-import https from 'https';
 import http from 'http';
 
 const VTSURU_BASE_URL = 'https://hongkong.vtsuru.live/api/';
@@ -16,11 +15,6 @@ let status = 'ok';
 let isCookieValid = false;
 
 let events = [];
-
-const agent = new https.Agent({
-  rejectUnauthorized: false,
-  minVersion: 'TLSv1.2',
-});
 
 Init();
 async function Init() {
@@ -63,7 +57,7 @@ async function Check() {
   } finally {
     setTimeout(() => {
       Check();
-    }, 5000);
+    }, 5500);
   }
 }
 async function checkCookie() {
@@ -72,7 +66,6 @@ async function checkCookie() {
       headers: {
         Cookie: process.env.VTSURU_BILI_COOKIE,
       },
-      httpAgent: agent,
     });
     const json = response.data;
     if (json.code !== 0) {
