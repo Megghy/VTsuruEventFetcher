@@ -68,8 +68,7 @@ async function Check() {
     }
   } catch (err) {
     console.log(err);
-  }
-  finally {
+  } finally {
     isChecking = false;
   }
 }
@@ -116,6 +115,14 @@ async function SendEvent() {
       if (tempEvents.length > 0) {
         console.log(`[ADD EVENT] 已发送 ${tempEvents.length} 条事件`);
         events.splice(0, tempEvents.length);
+      }
+      if (roomId > -1 && roomId != res.data) {
+        console.log('[ADD EVENT] 房间号改变, 重新连接');
+        if (chatClient) {
+          chatClient.stop();
+        }
+        roomId = res.data;
+        initChatClient();
       }
       roomId = res.data;
       return true;
