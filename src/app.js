@@ -97,10 +97,12 @@ async function SendEvent() {
         roomId = res.data;
         initChatClient();
       }
+
+      roomId = res.data;
+
       if (!chatClient) {
         initChatClient();
       }
-      roomId = res.data;
       return true;
     } else {
       console.log(`[ADD EVENT] 失败: ${res.message}`);
@@ -122,7 +124,7 @@ async function initChatClient() {
   //chatClient.msgHandler = this;
   chatClient.CMD_CALLBACK_MAP = CMD_CALLBACK_MAP;
   chatClient.start();
-  console.log('已连接房间');
+  console.log('已连接房间: ' + roomId);
 }
 function OnSC(command) {
   const data = command.data;
