@@ -40,26 +40,12 @@ async function Init() {
   }
 
   await checkCookie();
-  await Check();
+  await SendEvent();
   setInterval(() => {
     checkCookie();
   }, 30000);
 }
 let isFirst = true;
-async function Check() {
-  try {
-    const success = await SendEvent();
-    if (success && !chatClient) {
-      initChatClient();
-    }
-  } catch (err) {
-    console.log(err);
-  } finally {
-    setTimeout(() => {
-      Check();
-    }, 5500);
-  }
-}
 async function checkCookie() {
   try {
     const response = await axios.get('https://api.bilibili.com/x/member/web/account', {
@@ -111,6 +97,9 @@ async function SendEvent() {
         roomId = res.data;
         initChatClient();
       }
+      if (!chatClient) {
+        initChatClient();
+      }
       roomId = res.data;
       return true;
     } else {
@@ -120,6 +109,10 @@ async function SendEvent() {
   } catch (err) {
     console.error('[ADD EVENT] 无法访问后端');
     return false;
+  } finally {
+    setTimeout(async () => {
+      await SendEvent();
+    }, 5500);
   }
 }
 async function initChatClient() {
