@@ -47,20 +47,12 @@ async function Init() {
 
   await checkCookie();
   await Check();
-  setInterval(async () => {
-    await Check();
-  }, 5500);
   setInterval(() => {
     checkCookie();
   }, 30000);
 }
 let isFirst = true;
-let isChecking = false;
 async function Check() {
-  if (isChecking) {
-    return;
-  }
-  isChecking = true;
   try {
     const success = await SendEvent();
     if (success && !chatClient) {
@@ -69,7 +61,9 @@ async function Check() {
   } catch (err) {
     console.log(err);
   } finally {
-    isChecking = false;
+    setTimeout(() => {
+      Check();
+    }, 5000);
   }
 }
 async function checkCookie() {
