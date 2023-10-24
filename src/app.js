@@ -88,7 +88,7 @@ async function checkCookie() {
       status = 'ok';
     }
   } catch (ex) {
-    Logs.Warn(ex);
+    console.error(ex);
   }
 }
 async function SendEvent() {
