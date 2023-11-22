@@ -258,7 +258,7 @@ function OnGift(command) {
     uId: data.uid,
     msg: data.gift_name,
     price: data.paid ? price : -price,
-    num: gift_num,
+    num: data.gift_num,
     time: data.timestamp,
     guard_level: data.guard_level,
     fans_medal_level: data.fans_medal_level,
