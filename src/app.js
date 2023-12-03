@@ -116,7 +116,7 @@ async function SendEvent() {
         code = res.data;
         RestartRoom();
       }
-33
+      33;
       code = res.data;
 
       if (!chatClient) {
@@ -267,9 +267,36 @@ function OnGift(command) {
     fans_medal_wearing_status: data.fans_medal_wearing_status,
   });
 }
+function OnLike(command) {
+  const data = command.data;
+  console.log(`[点赞事件] ${data.uname}: ${data.like_count}`);
+  events.push({
+    type: 4,
+    name: data.uname,
+    uId: data.uid,
+    msg: data.like_text,
+    price: 0,
+    num: data.like_count,
+    time: data.timestamp,
+    guard_level: data.guard_level,
+    fans_medal_level: data.fans_medal_level,
+    fans_medal_name: data.fans_medal_name,
+    fans_medal_wearing_status: data.fans_medal_wearing_status,
+  });
+}
+function OnSCDel(command) {
+  const data = command.data;
+  console.log(`[sc删除事件] ${data.message_ids}`);
+  events.push({
+    type: 5,
+    msg: data.message_ids.join(','),
+  });
+}
 const CMD_CALLBACK_MAP = {
   LIVE_OPEN_PLATFORM_DM: OnMessage,
   LIVE_OPEN_PLATFORM_SEND_GIFT: OnGift,
   LIVE_OPEN_PLATFORM_GUARD: OnGuard,
   LIVE_OPEN_PLATFORM_SUPER_CHAT: OnSC,
+  LIVE_OPEN_PLATFORM_SUPER_CHAT_DEL: OnSCDel,
+  LIVE_OPEN_PLATFORM_LIKE: OnLike,
 };
