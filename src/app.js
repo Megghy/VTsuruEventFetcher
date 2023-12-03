@@ -116,7 +116,7 @@ async function SendEvent() {
         code = res.data;
         RestartRoom();
       }
-
+33
       code = res.data;
 
       if (!chatClient) {
@@ -246,6 +246,7 @@ function OnMessage(command) {
     fans_medal_level: data.fans_medal_level,
     fans_medal_name: data.fans_medal_name,
     fans_medal_wearing_status: data.fans_medal_wearing_status,
+    emoji: data.dm_type == 1 ? data.emoji_img_url : null,
   });
 }
 function OnGift(command) {
