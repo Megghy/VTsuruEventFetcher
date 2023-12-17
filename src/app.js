@@ -221,7 +221,7 @@ function OnGuard(command) {
     uId: data.user_info.uid,
     msg: data.guard_level == 1 ? '总督' : data.guard_level == 2 ? '提督' : '舰长',
     price: 0,
-    num: data.num,
+    num: data.guard_num,
     time: data.timestamp,
     guard_level: data.guard_level,
     fans_medal_level: data.fans_medal_level,
